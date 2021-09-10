@@ -27,7 +27,7 @@ const ConnectButton = styled(WalletDialogButton)``;
 
 const CounterText = styled.span``; // add your styles here
 
-const MintContainer = styled.div``; // add your styles here
+const MintContainer = styled.div``; // add your no styles here
 
 const MintButton = styled.button`mx-auto border-black border px-3 py-2 text-black border-6 font-bold bg-white rounded-md text-lg shadow-md shadow-offset-black items-center`; // add your styles here
 
