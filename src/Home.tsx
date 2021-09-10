@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import Image from 'next/image';
 import styled from "styled-components";
 import Countdown from "react-countdown";
+import 'tailwindcss/tailwind.css';
+import froggies from './images/Froggies.gif';
 import { Button, CircularProgress, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import { Helmet } from 'react-helmet';
 
 import * as anchor from "@project-serum/anchor";
 
@@ -25,7 +29,7 @@ const CounterText = styled.span``; // add your styles here
 
 const MintContainer = styled.div``; // add your styles here
 
-const MintButton = styled(Button)``; // add your styles here
+const MintButton = styled.button`mx-auto border-black border px-3 py-2 text-black border-6 font-bold bg-white rounded-md text-lg shadow-md shadow-offset-black items-center`; // add your styles here
 
 export interface HomeProps {
   candyMachineId: anchor.web3.PublicKey;
@@ -160,24 +164,54 @@ const Home = (props: HomeProps) => {
 
   return (
     <main>
-      {wallet.connected && (
-        <p>Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}</p>
-      )}
+      <Helmet>
+        <title>Crypto Froggies</title>
+        <meta property="og:title" content="Crypto Froggies" key="title" />
+      </Helmet>
+      <div className="relative flex flex-col h-screen overflow-x-hidden">
+        <div className="animate-bounce absolute bottom-2 left-20 w-40">
+          <p className="absolute -left-7 -top-10 text-white transform rotate-2">scroll down for more information!</p>
+        {/* Down arrow svg */}
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="white">
+          <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+        </svg>
+        </div>
+        <div className="animate-cloud flex-none absolute top-20 z-10 overflow-y-hidden">
+          <img className="" width="200" height="120" src="/cloud.png" alt="cloud"/>
+        </div>
+        <div className="animate-cloudslow flex-none absolute top-30 left-60 z-0 overflow-y-hidden">
+          <img className="" width="200" height="120" src="/cloud.png" alt="cloud"/>
+        </div>
+        <div className="animate-cloudslow flex-none absolute top-30 -left-80 z-0 overflow-y-hidden">
+          <img className="" width="200" height="120" src="/cloud.png" alt="cloud"/>
+        </div>
+        <div className="items-center justify-center mx-auto h-auto w-64 z-10">
+          <img src="/logo_highres.png" width="1000" height="500" alt="cloud"/>
+        </div>
+        <div className="items-center justify-center mx-auto my-1 border-white border-8 z-20 image-fix">
+            <img className="" src={froggies} width="250" height="250" alt="Froggies"/>
+        </div>
+        <div className="font-sans w-4/5 md:w-2/5 mx-auto z-10">  
+          <h2 className="font-black text-white md:text-3xl text-2xl text-center md:text-center my-3">A NEW TYPE OF NFT GAME.</h2>
+            <p className="text-md font-light text-gray text-center md:w-3/3 text-white my-3 md:my-0">
+            Welcome to the world of Crypto Froggies, featuring worlds first upgradable NFT&quot;s. Each minted Crypto Froggie
+            is a character in the Fungopia Universe.
 
-      {wallet.connected && (
-        <p>Balance: {(balance || 0).toLocaleString()} SOL</p>
-      )}
+            Owning a Crypto Froggies NFT gives you access to that character in the world.
+            </p>
+            <p className="text-md font-light text-gray text-center md:w-3/3 text-white my-3 md:my-3">
+            Send your Froggies on adventures within our upcoming game and be rewarded with our very own token (FrogSpawn). The proceeds from this launch will fund the liquidity of our token!
 
-      <MintContainer>
+            <b> Join our Discord and become a part of our community!</b>
+            </p>
+            <div className="flex flex-col items-center justify-center md:my-6">
+              <MintContainer>
         {!wallet.connected ? (
           <ConnectButton>Connect Wallet</ConnectButton>
         ) : (
-          <MintButton
-            disabled={isSoldOut || isMinting || !isActive}
-            onClick={onMint}
-            variant="contained"
-          >
-            {isSoldOut ? (
+          <div>
+            <button disabled={isSoldOut || isMinting || !isActive} className="mx-auto border-black border px-3 py-2 text-black border-6 font-bold bg-white rounded-md text-lg shadow-md shadow-offset-black items-center" onClick={ (e) => { onMint() } }>
+              {isSoldOut ? (
               "SOLD OUT"
             ) : isActive ? (
               isMinting ? (
@@ -193,9 +227,174 @@ const Home = (props: HomeProps) => {
                 renderer={renderCounter}
               />
             )}
-          </MintButton>
+              </button>
+            
+          </div>
         )}
       </MintContainer>
+              
+              
+              {wallet.connected && (
+                <div className="bg-white opacity-50 mx-auto my-2 text-center top-5 z-20 p-3 shadow-md shadow-offset-black">Connected {shortenAddress(wallet.publicKey?.toBase58() || "")}</div>
+              )}
+              <p className="text-white font-sans">0/1000 minted (Sale not live)</p>
+              <span className="my-3">
+                <a href="https://twitter.com/pixlfrogsnft" target="_blank" rel="noreferrer"><img className="w-9 mx-4 inline" width="64" height="64" alt="Twitter Logo" src="/twitter.png"/></a>
+                <a href="https://t.co/JLzkwX6oH1?amp=1" target="_blank" rel="noreferrer"><img className="w-8 mx-1 inline" alt="Discord link" src="/discord.png" width="64" height="64"/></a>
+              </span>
+            </div>
+         </div>
+         <div className="font-sans w-4/5 md:w-2/5 mx-auto z-10 bg-black">  
+           <h2 className="font-black text-white md:text-3xl text-2xl text-center md:text-center my-3">Will you mint a 1/1 Rare?</h2>
+         </div>
+         <div className="flex flex-col md:flex-row relative font-sans w-4/5 md:w-2/5 mx-auto z-10 py-3">
+            <div>
+              <p className="text-md font-light text-center md:text-left md:w-2/3 text-white my-12">
+                <b>Each mint has a 1 in 2500 chance to receive a 1/1 hand drawn piece</b> from our artist 
+                in celebration of launching this amazing project.
+              </p>
+              <p className="text-md font-light text-center md:text-left md:w-2/3 text-white my-12">
+                Every 1/1 piece will also have <b>unique benefits</b> in the upcoming Crypto Froggies game!
+              </p> 
+              <p className="text-md font-light text-center md:text-left md:w-2/3 text-white my-12">
+                Maximumim of 20 mints per transaction!
+              </p>   
+            </div>
+            <div className="mx-auto md:mx-0 md:absolute md:-right-16 md:top-10 md:transform md:rotate-3 md:border-8 md:border-white img-fix">
+              <img className="p-0 m-0" src="/31.png" width="250" height="250" alt="Rare Froggies"/>
+            </div>
+            <div className="mx-auto md:mx-0 md:absolute md:-right-24 md:top-6 md:transform md:rotate-3 md:border-8 md:border-white img-fix">
+              <img className="p-0 m-0" src="/10.png" width="250" height="250" alt="Rare Froggies"/>
+            </div>
+         </div>
+         <div className="font-sans w-4/5 md:w-2/5 mx-auto z-10 bg-black">  
+           <h2 className="font-black text-white md:text-3xl text-2xl text-center md:text-center my-3">Whats my Rarity?</h2>
+         </div>
+         <div className="flex flex-col md:flex-row relative font-sans w-4/5 md:w-2/5 mx-auto z-10 py-3">
+            <div>
+              <p className="text-md font-light text-center md:text-left md:w-2/3 text-white my-12">
+                Every <b>Crypto Froggie</b> is minted with a completely random &quot;Item Level&quot; value between 0 and 1 for Generation 0 Froggies 📊. This is something
+                completely unique to the space and has never been done before. <b>We are creating upgradable NFT&quot;s through our game.🔥🔥</b>
+              </p>
+              <p className="text-md font-light text-center md:text-left md:w-2/3 text-white my-12">
+                The higher the Item Level value on each Crypto Froggie will have access to <b>higher gear and higher level adventures</b>, therefor allowing you 
+                to receive better loot and fight higher level monsters!
+              </p>
+              <p className="text-md font-light text-center md:text-left md:w-2/3 text-white my-12">
+               Each Crypto Froggie is generated at Random from over 100+ traits! So you know for sure yours will be 100% unique.
+              </p> 
+              <p className="text-md font-light text-center md:text-left md:w-2/3 text-white my-12">
+                What is this game? Read more below.
+              </p>   
+            </div>
+         </div>
+         <div className="font-sans w-4/5 md:w-2/5 mx-auto z-10 bg-black">  
+           <h2 className="font-black text-white md:text-3xl text-2xl text-center my-3">The Game.</h2>
+         </div>
+         <div className="flex flex-col md:flex-row relative font-sans w-4/5 md:w-2/5 mx-auto z-10 py-3">
+            <div>
+              <p className="text-md font-light text-center md:text-right text-white my-12">
+              <b>Crypto Froggies</b> is a brand new Play To Earn NFT based RPG game running on the Ethereum blockchain 💰.  Featuring the very first up-gradable NFT&quot;s. Send your froggies on adventures and be rewarded with our very own <b>ERC20 Token &quot;Frog Spawn&quot;!</b>
+              </p>
+              <p className="text-md font-light text-center md:text-right text-white my-12">
+              You will be able to send your <b>Crypto Froggies</b> on adventures in our upcoming game, on those adventures ⚔️ your Froggie has a chance to find rare items out in the world. You can then equipped 🎒 those items onto your Froggies upgrading it&quot;s item level in the process! The higher the item level of your Froggie the better adventures it can go on 📈. When your Froggie reaches a certain level you will unlock the breeding aspect of the game too!
+              </p> 
+              <p className="text-md font-light text-center md:text-right md:w-2/3 text-white my-12">
+                🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+              </p>   
+            </div>
+         </div>
+         <div className="font-sans w-4/5 md:w-2/5 mx-auto z-10 bg-black">  
+           <h2 className="font-black text-white md:text-3xl text-2xl text-center my-3">The Roadmap.</h2>
+         </div>
+         <div className="hidden lg:flex flex-col md:flex-row relative font-sans w-4/5 md:w-2/5 mx-auto z-10 py-3">
+         <div className="timeline mx-auto font-sans">
+              <div className="container left">
+                <div className="date lg:-mx-8">1st Phase</div>
+                <i className="icon fa fa-home border-2 border-white"></i>
+                <div className="content text-white">
+                  <p className="font-sans font-light text-center">
+                    Release Crypto Froggies Generation 0 NFT
+                  </p>
+                </div>
+              </div>
+              <div className="container right">
+                <div className="date lg:-mx-8">2nd Phase</div>
+                <i className="icon fa fa-gift"></i>
+                <div className="content right">
+                  <p className="font-sans font-light text-center text-white">
+                    Airdrop holders <b className="font-bold">*THE SECRET*</b>
+                  </p>
+                </div>
+              </div>
+              <div className="container left">
+                <div className="date lg:-mx-8">3rd Phase</div>
+                <i className="icon fa fa-home border-2 border-white"></i>
+                <div className="content text-white">
+                  <p className="font-sans font-light text-center">
+                    Release beta version for early holders.
+                  </p>
+                </div>
+              </div>
+              <div className="container right">
+                <div className="date lg:-mx-8">4th Phase</div>
+                <i className="icon fa fa-gift"></i>
+                <div className="content">
+                  <p className="font-sans font-light text-center text-white">
+                    Unlock full Crypto Froggies Web App for general public use
+                  </p>
+                </div>
+              </div>
+            </div>
+         </div>
+         <div className="lg:hidden flex-col relative font-sans mx-auto my-10">
+           <div className="border-l-2 border-white absolute left-1/2 -top-9 h-8"></div>
+           <div className="bg-black w-4/5 mx-auto p-5 ">
+                <div className="text-center text-white">1st Phase</div>
+                <div className="text-white">
+                  <p className="font-sans font-light text-center">
+                    Release Crypto Froggies Generation 0 NFT
+                  </p>
+                </div>
+           </div>
+           <div className="border-l-2 border-white absolute left-1/2 top-24 z-0 h-8"></div>
+           <div className="bg-black w-4/5 mx-auto my-12 p-5 z-20">
+                <div className="text-center text-white">2nd Phase</div>
+                <div className="text-white">
+                  <p className="font-sans font-light text-center">
+                    Airdrop holders <b className="font-bold">*THE SECRET*</b>
+                  </p>
+                </div>
+           </div>
+           <div className="border-l-2 border-white absolute left-1/2 top-56 my-2 h-8 z-0"></div>
+           <div className="bg-black w-4/5 mx-auto my-10 p-5 z-10">
+                <div className="text-center text-white">3rd Phase</div>
+                <div className="text-white">
+                  <p className="font-sans font-light text-center">
+                    Release beta version for early holders.
+                  </p>
+                </div>
+           </div>
+           <div className="border-l-2 border-white absolute left-1/2 bottom-40 -my-1 h-8"></div>
+           <div className="bg-black w-4/5 mx-auto my-10 p-5">
+                <div className="text-center text-white">4th Phase</div>
+                <div className="text-white">
+                  <p className="font-sans font-light text-center">
+                    Unlock full Crypto Froggies Web App for general public use
+                  </p>
+                </div>
+           </div>
+         </div>
+         <div className="flex justify-center space-x-16 bg-black">
+        <div className="text-white font-semibold my-auto">CRYPTO FROGGEIS NFT - Made with ❤️ by Crypto Froggies Lab</div>
+        <div className=""></div>
+        <div className="">
+          <a href="https://twitter.com/pixlfrogsnft" target="_blank" rel="noreferrer"><img className="w-9 mx-4 inline" width="42" height="42" alt="Twitter Logo" src="/twitter.png"/></a>
+          <a href="https://t.co/JLzkwX6oH1?amp=1" target="_blank" rel="noreferrer"><img className="w-8 mx-1 inline" alt="Discord link" src="/discord.png" width="42" height="42"/></a>
+        </div>
+      </div>
+      </div>
+      
 
       <Snackbar
         open={alertState.open}
