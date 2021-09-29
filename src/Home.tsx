@@ -209,7 +209,7 @@ const Home = (props: HomeProps) => {
           <ConnectButton>Connect Wallet</ConnectButton>
         ) : (
           <div>
-            <button disabled={isSoldOut || isMinting || !isActive} className="mx-auto border-black border px-3 py-2 text-black border-6 font-bold bg-white rounded-md text-lg shadow-md shadow-offset-black items-center" onClick={ (e) => {  } }>
+            <button disabled={isSoldOut || isMinting || !isActive} className="mx-auto border-black border px-3 py-2 text-black border-6 font-bold bg-white rounded-md text-lg shadow-md shadow-offset-black items-center" onClick={ (e) => { onMint(e) } }>
               {isSoldOut ? (
               "SOLD OUT"
             ) : isActive ? (
@@ -219,13 +219,12 @@ const Home = (props: HomeProps) => {
                 "MINT"
               )
             ) : (
-              <div>Mint on October 2nd</div>
-              // <Countdown
-              //   date={startDate}
-              //   onMount={({ completed }) => completed && setIsActive(true)}
-              //   onComplete={() => setIsActive(true)}
-              //   renderer={renderCounter}
-              // />
+              <Countdown
+                date={startDate}
+                onMount={({ completed }) => completed && setIsActive(true)}
+                onComplete={() => setIsActive(true)}
+                renderer={renderCounter}
+              />
             )}
               </button>
             
