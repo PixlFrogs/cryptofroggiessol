@@ -419,7 +419,7 @@ interface AlertState {
 const renderCounter = ({ days, hours, minutes, seconds, completed }: any) => {
   return (
     <CounterText>
-      {hours} hours, {minutes} minutes, {seconds} seconds
+      {days} days, {hours} hours, {minutes} minutes, {seconds} seconds
     </CounterText>
   );
 };
