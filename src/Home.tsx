@@ -236,7 +236,7 @@ const Home = (props: HomeProps) => {
               {wallet.connected && (
                 <div className="bg-white opacity-50 mx-auto my-2 text-center top-5 z-20 p-3 shadow-md shadow-offset-black">Connected {shortenAddress(wallet.publicKey?.toBase58() || "")}</div>
               )}
-              <p className="text-white font-sans">303/1000 minted</p>
+              <p className="text-white font-sans">304/1000 minted</p>
               <span className="my-3">
                 <a href="https://twitter.com/pixlfrogsnft" target="_blank" rel="noreferrer"><img className="w-9 mx-4 inline" width="64" height="64" alt="Twitter Logo" src="/twitter.png"/></a>
                 <a href="https://t.co/JLzkwX6oH1?amp=1" target="_blank" rel="noreferrer"><img className="w-8 mx-1 inline" alt="Discord link" src="/discord.png" width="64" height="64"/></a>
